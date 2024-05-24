@@ -1,4 +1,4 @@
-div#root {
+/* div#root {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -7,7 +7,7 @@ div#root {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(255, 255, 255);
-}
+} */
 
 body {
   margin: 0;
