@@ -5,9 +5,11 @@ import {Card, CardBody} from 'react-bootstrap'
 function FoodForm({onAddFood}) {
 
     const [foodName, setFoodName] = useState('')
+    const [foodImage, setFoodImage] = useState(null)
     const [carbs, setCarbs] = useState('')
     const [fats, setFats] = useState('')
     const [proteins, setProteins] = useState('')
+    const [previewUrl, setPreviewUrl] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -16,6 +18,7 @@ function FoodForm({onAddFood}) {
 
         const newFood = {   
             name: foodName,
+            image: foodImage,
             carbs: parseInt(carbs),
             fats: parseInt(fats),
             proteins: parseInt(proteins),
@@ -24,11 +27,21 @@ function FoodForm({onAddFood}) {
 
         onAddFood(newFood)
 
-        // setFoodName('')
-        // setCarbs('')
-        // setFats('')
-        // setProteins('')
+        //clears the form field
+        // setFoodName('');
+        // setFoodImage(null);
+        // setCarbs('');
+        // setFats('');
+        // setProteins('');
+        // setPreviewUrl('');
     }
+
+    function handleFileChange(e) {
+        const file = e.target.files[0];
+        setFoodImage(file);
+        setPreviewUrl(URL.createObjectURL(file));
+      }
+
 
 
     return(
@@ -36,27 +49,62 @@ function FoodForm({onAddFood}) {
             <Card>
                 <CardBody>
                     <div>
-                        <h2 className='mb-4'>Add New Food</h2>
+                        <h2 className='mb-3'>Add New Food</h2>
                         <form onSubmit={handleSubmit}>
-                            <div className='mb-3'>
-                                <label>
-                                <strong>Food Name:</strong>
-                                <input type="text" value={foodName} onChange={(e) => setFoodName(e.target.value)}  style={{ marginLeft: "10px", marginRight:"10px" }} required />
-                                </label>
-                                <label className= 'px-5'>
-                                <strong>Carbs (g):</strong>
-                                <input type="number" value={carbs} onChange={(e) => setCarbs(e.target.value)} style={{ marginLeft: "10px", marginRight:"10px" }} required />
-                                </label>
-                                <label>
-                                <strong>Fats (g):</strong>
-                                <input type="number" value={fats} onChange={(e) => setFats(e.target.value)} style={{ marginLeft: "10px", marginRight:"10px" }} required />
-                                </label>
-                                <label>
-                                Proteins (g):
-                                <input type="number" value={proteins} onChange={(e) => setProteins(e.target.value)} style={{ marginLeft: "10px", marginRight:"10px" }} required />
-                                </label>
+                            <div className='row mb-3'>
+                            <div className='col-md-4'>
+                                <label><strong>Food Name:</strong></label>
+                                <input
+                                type="text"
+                                className="form-control"
+                                value={foodName}
+                                onChange={(e) => setFoodName(e.target.value)}
+                                required
+                                />
                             </div>
-                            <button type="submit" className='btn btn-primary'>Add Food</button>
+                            <div className='col-md-4'>
+                                <label><strong>Food Image:</strong></label>
+                                <br></br>
+                                <input
+                                type="file"
+                                accept="image/*"
+                                className="form-control-file"
+                                onChange={handleFileChange}
+                                />
+                                {/* {previewUrl && <img src={previewUrl} alt="Preview" width="100" />} */}
+                            </div>
+                            <div className='col-md-4'>
+                                <label><strong>Carbs (g):</strong></label>
+                                <input
+                                type="number"
+                                className="form-control"
+                                value={carbs}
+                                onChange={(e) => setCarbs(e.target.value)}
+                                required
+                                />
+                            </div>
+                            <div className='col-md-4'>
+                                <label><strong>Fats (g):</strong></label>
+                                <input
+                                type="number"
+                                className="form-control"
+                                value={fats}
+                                onChange={(e) => setFats(e.target.value)}
+                                required
+                                />
+                            </div>
+                            <div className='col-md-4'>
+                                <label><strong>Proteins (g):</strong></label>
+                                <input
+                                type="number"
+                                className="form-control"
+                                value={proteins}
+                                onChange={(e) => setProteins(e.target.value)}
+                                required
+                                />
+                            </div>
+                            </div>
+                            <button type="submit" className='btn btn-primary'>Add Food</button> 
                         </form>
                     </div>
                 </CardBody>
@@ -68,14 +116,55 @@ function FoodForm({onAddFood}) {
 export default FoodForm
 
 
-//<div>
 
-//     <h2>Add New Food</h2>
-//     <form onSubmit={handleSubmit}>
-//         <input type='text' value={foodName} onChange={(e) => setFoodName(e.target.value)} />
-//         <input type='number' value={carbs} onChange={(e) => setCarbs(e.target.value)} />
-//         <input type='number' value={fats} onChange={(e) => setFats(e.target.value)} />
-//         <input type='number' value={proteins} onChange={(e) => setProteins(e.target.value)} />
-//         <button type='submit' className='btn btn-primary'>Add Food</button>
-//     </form>
-// </div>
+
+// <div className='form-group'>
+//                 <label><strong>Food Name:</strong></label>
+//                 <input
+//                   type="text"
+//                   className="form-control"
+//                   value={foodName}
+//                   onChange={(e) => setFoodName(e.target.value)}
+//                   required
+//                 />
+//               </div>
+//               <div className='form-group'>
+//                 <label><strong>Food Image:</strong></label>
+//                 <input
+//                   type="file"
+//                   accept="image/*"
+//                   className="form-control-file"
+//                   onChange={handleFileChange}
+//                 />
+//                 {previewUrl && <img src={previewUrl} alt="Preview" width="100" />}
+//               </div>
+//               <div className='form-group'>
+//                 <label><strong>Carbs (g):</strong></label>
+//                 <input
+//                   type="number"
+//                   className="form-control"
+//                   value={carbs}
+//                   onChange={(e) => setCarbs(e.target.value)}
+//                   required
+//                 />
+//               </div>
+//               <div className='form-group'>
+//                 <label><strong>Fats (g):</strong></label>
+//                 <input
+//                   type="number"
+//                   className="form-control"
+//                   value={fats}
+//                   onChange={(e) => setFats(e.target.value)}
+//                   required
+//                 />
+//               </div>
+//               <div className='form-group'>
+//                 <label><strong>Proteins (g):</strong></label>
+//                 <input
+//                   type="number"
+//                   className="form-control"
+//                   value={proteins}
+//                   onChange={(e) => setProteins(e.target.value)}
+//                   required
+//                 />
+//               </div>

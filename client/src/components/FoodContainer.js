@@ -8,6 +8,7 @@ import FoodCard from './FoodCard'
 function FoodContainer() {
 
     const [food, setFood] = useState([])
+    console.log(food)
 
     function handleFood(newFood) {
         console.log('adding new food', newFood)
