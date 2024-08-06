@@ -9,7 +9,7 @@ function FoodItem({name, carbs, fats, proteins, calories, image}) {
         <div className="food-card">
         <div className="food-card-header">{name}</div>
         <div className="food-card-body">
-        {image && <Card.Img src={URL.createObjectURL(image)} alt={name} className="food-image" />}
+        {image && <Card.Img src={image} alt={name} className="food-image" />}
           <p><strong>Carbs:</strong> {carbs}g</p>
           <p><strong>Fats:</strong> {fats}g</p>
           <p><strong>Proteins:</strong> {proteins}g</p>

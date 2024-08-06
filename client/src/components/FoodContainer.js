@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { Card } from 'react-bootstrap';
 import FoodForm from './FoodForm'
 import FoodCard from './FoodCard'
@@ -14,6 +14,12 @@ function FoodContainer() {
         console.log('adding new food', newFood)
         setFood([...food, newFood])
     }
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5555/food')
+        .then(res => res.json())
+        .then(setFood)
+    },[])
 
 
     return(

@@ -2,7 +2,6 @@ import FoodItem from'./FoodItem'
 
 function FoodCard({food}) {
 
-    console.log(food)
 
     const foodItem = food.map((foodObj) => (
         <div className='col-md-4 col-lg-2 mb-3'>

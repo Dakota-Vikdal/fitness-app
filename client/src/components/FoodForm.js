@@ -9,37 +9,38 @@ function FoodForm({onAddFood}) {
     const [carbs, setCarbs] = useState('')
     const [fats, setFats] = useState('')
     const [proteins, setProteins] = useState('')
-    const [previewUrl, setPreviewUrl] = useState('');
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    
+
+    const handleSubmit = e => {
+        e.preventDefault();
 
         const calories = 4 * parseInt(carbs) + 9 * parseInt(fats) + 4 * parseInt(proteins)
-
-        const newFood = {   
-            name: foodName,
-            image: foodImage,
-            carbs: parseInt(carbs),
-            fats: parseInt(fats),
-            proteins: parseInt(proteins),
-            calories: calories
-        }
-
-        onAddFood(newFood)
-
-        //clears the form field
-        // setFoodName('');
-        // setFoodImage(null);
-        // setCarbs('');
-        // setFats('');
-        // setProteins('');
-        // setPreviewUrl('');
-    }
+    
+        const formData = new FormData();
+        formData.append('name', foodName);
+        formData.append('image', foodImage);
+        formData.append('carbs', carbs);
+        formData.append('fats', fats);
+        formData.append('proteins', proteins);
+        formData.append('calories', calories);
+    
+        fetch('http://localhost:5555/food', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            onAddFood(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
 
     function handleFileChange(e) {
         const file = e.target.files[0];
         setFoodImage(file);
-        setPreviewUrl(URL.createObjectURL(file));
       }
 
 
@@ -71,7 +72,6 @@ function FoodForm({onAddFood}) {
                                 className="form-control-file"
                                 onChange={handleFileChange}
                                 />
-                                {/* {previewUrl && <img src={previewUrl} alt="Preview" width="100" />} */}
                             </div>
                             <div className='col-md-4'>
                                 <label><strong>Carbs (g):</strong></label>
@@ -114,6 +114,71 @@ function FoodForm({onAddFood}) {
 }
 
 export default FoodForm
+
+
+
+
+
+
+
+
+
+
+
+// function handleSubmit(e) {
+    //     e.preventDefault()
+
+        
+    //     const newFood = {   
+    //         name: foodName,
+    //         image: foodImage,
+    //         carbs: parseInt(carbs),
+    //         fats: parseInt(fats),
+    //         proteins: parseInt(proteins),
+    //         calories: calories
+    //     }
+
+    //     onAddFood(newFood)
+
+    //     //clears the form field
+    //     // setFoodName('');
+    //     // setFoodImage(null);
+    //     // setCarbs('');
+    //     // setFats('');
+    //     // setProteins('');
+    //     // setPreviewUrl('');
+    // }
+
+    // const handleSubmit = e => {
+    //     e.preventDefault()
+
+    //         fetch('http://localhost:5555/food', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             name: foodName,
+    //             image: foodImage,
+    //             carbs: carbs,
+    //             fats: fats,
+    //             proteins: proteins,
+    //             calories: calories
+    //         }),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('Food item added:', data);
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     })}
+    
+
+
+
+
+
 
 
 
